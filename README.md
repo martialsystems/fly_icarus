@@ -4,19 +4,19 @@ Does a live male P1 network (DA1 / ppk23 / motion still feeding it) treat a froz
 
 In this 11-cell published-sign slice, rewriting odor to 7,11-HD with cVA off is necessary and sufficient for the 3≈1 gate. Icarus morphology, pinned contact, and feminized cuticle are not.
 
-The live net is an 11-cell published-sign schema. Condition 3 equals condition 1 because both present the same signed channels to a saturating P1 unit, not because MaleCNS decided that. `@1244f09` (`logs/p1_frozen_s1.json`) is that schema gate. It passed. It is not a connectome courtship result. The frozen P1 question is closed for this slice.
+The live net is an 11-cell published-sign schema. Condition 3 equals condition 1 because both present the same signed channels to a saturating P1 unit. `@1244f09` (`logs/p1_frozen_s1.json`) is that schema gate. It passed. The frozen P1 question is closed for this slice.
 
 P1 pre-activation, weights from `data/templates/male_p1.json`:
 
 `P1 <- 1.2 ORN_HD - 1.8 DA1 + 0.8 ppk23_f - 0.8 ppk23_m + 0.9 LC10a + 0.35 P1`
 
-Icarus-from-male as encoded turns HD on and cVA/DA1 off. That removes the only strong brake and leaves two excitatory tags plus a 0.35 latch. `d31 = 0.0` is the same feature vector twice. Seeds 2 and 3 matching the sign is a near-deterministic schema, not independent biological replication. LC10a here is a frozen size/shape bit. Song bouts = 1 is a threshold crossing: at dt = 0.05 the latch turns on at step 36 (1.8 s) and stays on. That is not a pulse-song motif.
+Icarus-from-male as encoded turns HD on and cVA/DA1 off. That removes the only strong brake and leaves two excitatory tags plus a 0.35 latch. `d31 = 0.0` is the same feature vector twice. Seeds 2 and 3 match the sign because the schema is near-deterministic. LC10a here is a frozen size/shape bit. Song bouts = 1: at dt = 0.05 the latch turns on at step 36 (1.8 s) and stays on.
 
 ## DA1 dose-response on the 3d pin
 
 Copied from `logs/p1_da1_dose_s1.json`. Seed 1, 2,000 steps, 3d pin held. Sweep `W[P1, DA1]` from 0.0 to -2.4 in 0.05 steps. Template weight is -1.8.
 
-Critical weight: P1 mean crosses zero at `W[P1, DA1] = -1.5262` (bracket -1.5 / -1.55, P1 0.0337 / -0.0307). At the template -1.8, P1 is -0.3324. DA1 wins on 3d because the schema weight is past the crossing, not because 3d was a near-miss. Seeds 2 and 3 give the same -1.5262.
+Critical weight: P1 mean crosses zero at `W[P1, DA1] = -1.5262` (bracket -1.5 / -1.55, P1 0.0337 / -0.0307). At the template -1.8, P1 is -0.3324, past the crossing. Seeds 2 and 3 give the same -1.5262.
 
 | W[P1, DA1] | P1 mean | DA1 term | song frac |
 |-----------:|--------:|---------:|----------:|
@@ -126,7 +126,7 @@ Do not overwrite `logs/p1_frozen_s1.json`, `logs/p1_terms_s1.json`, or `logs/p1_
 | `logs/p1_contact_s1.json` | Frozen P1 live lock: 3c, 3d, copresent |
 | `logs/p1_da1_dose_s1.json` | 3d-pin DA1 weight sweep, W_crit = -1.5262 |
 | `icarusforge/` | GraphForge pin: five refuse laws |
-| `viewer/` | Two-body condition switcher. Not the finding. |
+| `viewer/` | Two-body condition switcher |
 | `AGENTS.md` | Project rules and VBD |
 | `NEXT.md` | Pointer. Do not restamp `@2cf5fd6`. |
 | `NEXT_SENTENCE.md` | Next sentence. New W. Do not reopen `p1_contact_s1.json`. |
