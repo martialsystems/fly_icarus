@@ -6,7 +6,7 @@ Experiment 1 is a two-agent frozen-object assay. Subject: one male P1 slice (DA1
 
 The frozen P1 question is closed for this slice. Do not unfreeze. Do not add `--female-brain-icarus` or `--n 1000` runs. Default Icarus transform never changes `wiring_sex`. Those flags stay stubbed.
 
-Next question is locked in `NEXT.md`. New weights. Do not restamp `@2cf5fd6`. Do not unfreeze this slice to answer it.
+Next sentence is locked in `NEXT_SENTENCE.md`. New W, new lock, not this battery. Do not restamp `@2cf5fd6`. Do not reopen `logs/p1_contact_s1.json`. Do not unfreeze this slice.
 
 The subject slice is a published-sign schema on MaleCNS / FlyWire type names. It is not a hop-count extract and not a live 166,691-cell LIF. LC10a here is a frozen size/shape proxy, not a T4/T5 motion extract.
 

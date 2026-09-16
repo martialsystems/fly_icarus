@@ -24,6 +24,7 @@ def test_public_copy_is_clean() -> None:
         "README.md",
         "AGENTS.md",
         "NEXT.md",
+        "NEXT_SENTENCE.md",
         "description.txt",
         "THIRD_PARTY.md",
         "viewer/index.html",

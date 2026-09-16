@@ -13,6 +13,7 @@
         "README.md",
         "AGENTS.md",
         "NEXT.md",
+        "NEXT_SENTENCE.md",
         "description.txt",
         "pyproject.toml",
         "vbd.runtime.json",

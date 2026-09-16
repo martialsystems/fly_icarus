@@ -128,7 +128,8 @@ Do not overwrite `logs/p1_frozen_s1.json`, `logs/p1_terms_s1.json`, or `logs/p1_
 | `icarusforge/` | GraphForge pin: five refuse laws |
 | `viewer/` | Two-body condition switcher. Not the finding. |
 | `AGENTS.md` | Project rules and VBD |
-| `NEXT.md` | Next question lock. New weights. Do not restamp `@2cf5fd6`. |
+| `NEXT.md` | Pointer. Do not restamp `@2cf5fd6`. |
+| `NEXT_SENTENCE.md` | Next sentence. New W. Do not reopen `p1_contact_s1.json`. |
 | `THIRD_PARTY.md` | Connectome attribution |
 
 [Fly research index](https://gist.github.com/martialsystems/12835f747d6360781f3cc7f91f243178)
