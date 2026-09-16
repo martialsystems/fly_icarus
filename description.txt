@@ -1,1 +1,1 @@
-Does a live male P1 network treat a frozen Icarus-from-male as a female? Schema gate @1244f09: 3 equals 1. Control 3b (Icarus body, male odor) P1 -0.4496, driver odor_rewrite. Not a MaleCNS hop-count. Two agents. Wiring stays.
+Does a live male P1 network treat a frozen Icarus-from-male as a female? In this 11-cell slice, HD rewrite is necessary and sufficient for 3≈1. 3c P1 -0.949; 3d DA1 still wins (-0.3324); copresent -0.0315. Unfreeze stubbed.

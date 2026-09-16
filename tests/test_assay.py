@@ -42,7 +42,18 @@ def test_female_lights_p1_male_does_not() -> None:
 def test_default_conditions_include_3b_and_6() -> None:
     result = run_assay(AssayConfig(seed=1, steps=500))
     rows = {str(r["condition"]): r for r in result["conditions"]}
-    assert set(rows) == {"1", "2", "3", "3b", "4", "5", "6"}
+    assert set(rows) == {
+        "1",
+        "2",
+        "3",
+        "3b",
+        "4",
+        "5",
+        "6",
+        "3c",
+        "3d",
+        "copresent",
+    }
     assert result["n_agents"] == 2
     assert result["n_live_w"] == 1
     assert result["gate"]["passed"] is True
@@ -60,6 +71,21 @@ def test_default_conditions_include_3b_and_6() -> None:
         assert name in result["p1_term_weights"]
     assert rows["1"]["p1_terms"]["ORN_HD"] > 0
     assert rows["2"]["p1_terms"]["DA1"] < 0
+    assert rows["3c"]["pin"] is True
+    assert rows["3d"]["pin"] is True
+    assert rows["3b"]["pin"] is False
+    assert rows["copresent"]["pin"] is False
+    assert rows["3c"]["p1_terms"]["ppk23_m"] < -0.4
+    assert rows["3c"]["p1_terms"]["ppk23_f"] == 0.0
+    assert rows["3d"]["p1_terms"]["ppk23_f"] > 0.4
+    assert rows["3d"]["p1_terms"]["ppk23_m"] == 0.0
+    assert result["control_3c"]["male_taste_on"] is True
+    assert result["control_3c"]["more_negative_than_3b"] is True
+    assert result["control_3d"]["driver"] in {
+        "contact_feminize_required",
+        "da1_wins_full_excitatory_bundle",
+    }
+    assert result["copresent"]["both_ligands"] is True
 
 
 def test_ablations_and_3b() -> None:
@@ -99,3 +125,14 @@ def test_museum_schema_gate_not_overwritten() -> None:
     assert rows[3]["p1_mean"] == 0.9824
     assert rows[1]["p1_mean"] == 0.9824
     assert "3b" not in {str(r["condition"]) for r in data["conditions"]}
+    terms = json.loads((REPO / "logs" / "p1_terms_s1.json").read_text(encoding="utf-8"))
+    assert terms["schema"] == "fly_icarus.p1_frozen.v2"
+    assert {str(r["condition"]) for r in terms["conditions"]} == {
+        "1",
+        "2",
+        "3",
+        "3b",
+        "4",
+        "5",
+        "6",
+    }

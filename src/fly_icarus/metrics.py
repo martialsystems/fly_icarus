@@ -138,3 +138,62 @@ def classify_tag_leak(rows: dict[str, dict]) -> dict:
         "p1_d36": round(d36, 4),
         "matched": bool(d36 < 0.02),
     }
+
+
+def classify_3c(rows: dict[str, dict]) -> dict:
+    """Pinned Icarus body, male odor, male cuticle. Taste should brake further."""
+    if "3c" not in rows:
+        return {"present": False}
+    c = rows["3c"]
+    b = rows.get("3b")
+    terms = c.get("p1_terms") or {}
+    more_neg = None if b is None else bool(c["p1_mean"] < b["p1_mean"])
+    return {
+        "present": True,
+        "p1_mean": c["p1_mean"],
+        "ppk23_m": terms.get("ppk23_m"),
+        "ppk23_f": terms.get("ppk23_f"),
+        "more_negative_than_3b": more_neg,
+        "male_taste_on": bool(float(terms.get("ppk23_m") or 0.0) < -0.4),
+    }
+
+
+def classify_3d(rows: dict[str, dict]) -> dict:
+    """Pinned Icarus body, male odor, female cuticle. Can shape-plus-taste beat DA1?"""
+    if "3d" not in rows:
+        return {"present": False}
+    d = rows["3d"]
+    terms = d.get("p1_terms") or {}
+    p1 = float(d["p1_mean"])
+    if p1 > 0.0:
+        driver = "contact_feminize_required"
+    else:
+        driver = "da1_wins_full_excitatory_bundle"
+    return {
+        "present": True,
+        "p1_mean": d["p1_mean"],
+        "ppk23_f": terms.get("ppk23_f"),
+        "ppk23_m": terms.get("ppk23_m"),
+        "DA1": terms.get("DA1"),
+        "LC10a": terms.get("LC10a"),
+        "driver": driver,
+    }
+
+
+def classify_copresent(rows: dict[str, dict]) -> dict:
+    """Icarus body, HD and cVA both on, free approach."""
+    if "copresent" not in rows:
+        return {"present": False}
+    r = rows["copresent"]
+    terms = r.get("p1_terms") or {}
+    return {
+        "present": True,
+        "p1_mean": r["p1_mean"],
+        "ORN_HD": terms.get("ORN_HD"),
+        "DA1": terms.get("DA1"),
+        "song_frac": r["song_frac"],
+        "both_ligands": bool(
+            float(terms.get("ORN_HD") or 0.0) > 0.05
+            and float(terms.get("DA1") or 0.0) < -0.05
+        ),
+    }

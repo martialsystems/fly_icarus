@@ -1,0 +1,397 @@
+{
+  "schema": "fly_icarus.p1_frozen.v3",
+  "question": "Does a live male P1 network (DA1 / ppk23 / motion still feeding it) treat a frozen grounded Icarus-from-male as a female?",
+  "honesty": "Published-sign schema. Condition 3 equals 1 when both present the same signed channels into a saturating P1 unit. Not a MaleCNS hop-count.",
+  "n_agents": 2,
+  "n_live_w": 1,
+  "seed": 2,
+  "steps": 2000,
+  "dt": 0.05,
+  "engine": "published_sign_schema",
+  "parent_female_n": 139255,
+  "parent_male_n": 166691,
+  "slice_n": 11,
+  "p1_term_cells": [
+    "ORN_HD",
+    "DA1",
+    "ppk23_f",
+    "ppk23_m",
+    "LC10a",
+    "P1"
+  ],
+  "p1_term_weights": {
+    "ORN_HD": 1.2,
+    "DA1": -1.8,
+    "ppk23_f": 0.8,
+    "ppk23_m": -0.8,
+    "LC10a": 0.9,
+    "P1": 0.35
+  },
+  "conditions": [
+    {
+      "condition": "1",
+      "name": "flying_female",
+      "role": "positive control",
+      "object": {
+        "wiring_sex": 0,
+        "wings": true,
+        "abdomen": "female",
+        "odor": "hd",
+        "cuticle": "female",
+        "icarus": false,
+        "frozen": true,
+        "mass": 1.35
+      },
+      "pin": false,
+      "steps": 2000,
+      "p1_mean": 0.9824,
+      "orient_frac": 0.994,
+      "song_frac": 0.982,
+      "song_bouts": 1,
+      "song_onset_step": 36,
+      "copulation_attempts": 1,
+      "p1_terms": {
+        "ORN_HD": 0.9087,
+        "DA1": 0.0,
+        "ppk23_f": 0.614,
+        "ppk23_m": 0.0,
+        "LC10a": 0.6459,
+        "P1": 0.3438,
+        "sum": 2.5124
+      }
+    },
+    {
+      "condition": "2",
+      "name": "flying_male",
+      "role": "negative control",
+      "object": {
+        "wiring_sex": 1,
+        "wings": true,
+        "abdomen": "male",
+        "odor": "male",
+        "cuticle": "male",
+        "icarus": false,
+        "frozen": true,
+        "mass": 1.0
+      },
+      "pin": false,
+      "steps": 2000,
+      "p1_mean": -0.6487,
+      "orient_frac": 0.0,
+      "song_frac": 0.0,
+      "song_bouts": 0,
+      "song_onset_step": null,
+      "copulation_attempts": 0,
+      "p1_terms": {
+        "ORN_HD": 0.0,
+        "DA1": -0.7193,
+        "ppk23_f": 0.0,
+        "ppk23_m": 0.0,
+        "LC10a": 0.1725,
+        "P1": -0.227,
+        "sum": -0.7738
+      }
+    },
+    {
+      "condition": "3",
+      "name": "icarus_from_male",
+      "role": "the rule: fat wingless, HD on",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "hd",
+        "cuticle": "female",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "pin": false,
+      "steps": 2000,
+      "p1_mean": 0.9824,
+      "orient_frac": 0.994,
+      "song_frac": 0.982,
+      "song_bouts": 1,
+      "song_onset_step": 36,
+      "copulation_attempts": 1,
+      "p1_terms": {
+        "ORN_HD": 0.9077,
+        "DA1": 0.0,
+        "ppk23_f": 0.614,
+        "ppk23_m": 0.0,
+        "LC10a": 0.6455,
+        "P1": 0.3438,
+        "sum": 2.511
+      }
+    },
+    {
+      "condition": "3b",
+      "name": "icarus_from_male_male_odor",
+      "role": "Icarus body, odor still male (cVA on, HD off), free approach",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "male",
+        "cuticle": "male",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "pin": false,
+      "steps": 2000,
+      "p1_mean": -0.4496,
+      "orient_frac": 0.0,
+      "song_frac": 0.0,
+      "song_bouts": 0,
+      "song_onset_step": null,
+      "copulation_attempts": 0,
+      "p1_terms": {
+        "ORN_HD": 0.0,
+        "DA1": -0.7193,
+        "ppk23_f": 0.0,
+        "ppk23_m": 0.0,
+        "LC10a": 0.3921,
+        "P1": -0.1574,
+        "sum": -0.4846
+      }
+    },
+    {
+      "condition": "4",
+      "name": "icarus_from_male_body_only",
+      "role": "morphology without 7,11-HD",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "none",
+        "cuticle": "none",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "pin": false,
+      "steps": 2000,
+      "p1_mean": 0.709,
+      "orient_frac": 0.992,
+      "song_frac": 0.975,
+      "song_bouts": 1,
+      "song_onset_step": 50,
+      "copulation_attempts": 1,
+      "p1_terms": {
+        "ORN_HD": 0.0,
+        "DA1": 0.0,
+        "ppk23_f": 0.0,
+        "ppk23_m": 0.0,
+        "LC10a": 0.6396,
+        "P1": 0.2481,
+        "sum": 0.8877
+      }
+    },
+    {
+      "condition": "5",
+      "name": "icarus_from_male_odor_only",
+      "role": "7,11-HD without the fat wingless female shape",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "male",
+        "odor": "hd",
+        "cuticle": "female",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "pin": false,
+      "steps": 2000,
+      "p1_mean": 0.9667,
+      "orient_frac": 0.993,
+      "song_frac": 0.979,
+      "song_bouts": 1,
+      "song_onset_step": 42,
+      "copulation_attempts": 1,
+      "p1_terms": {
+        "ORN_HD": 0.899,
+        "DA1": 0.0,
+        "ppk23_f": 0.6109,
+        "ppk23_m": 0.0,
+        "LC10a": 0.326,
+        "P1": 0.3383,
+        "sum": 2.1742
+      }
+    },
+    {
+      "condition": "6",
+      "name": "icarus_from_female",
+      "role": "same body+odor as 3, female wiring tag",
+      "object": {
+        "wiring_sex": 0,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "hd",
+        "cuticle": "female",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "pin": false,
+      "steps": 2000,
+      "p1_mean": 0.9824,
+      "orient_frac": 0.994,
+      "song_frac": 0.982,
+      "song_bouts": 1,
+      "song_onset_step": 36,
+      "copulation_attempts": 1,
+      "p1_terms": {
+        "ORN_HD": 0.9086,
+        "DA1": 0.0,
+        "ppk23_f": 0.614,
+        "ppk23_m": 0.0,
+        "LC10a": 0.6459,
+        "P1": 0.3438,
+        "sum": 2.5123
+      }
+    },
+    {
+      "condition": "3c",
+      "name": "icarus_pin_male_cuticle",
+      "role": "forced contact, Icarus body, male odor, male cuticle",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "male",
+        "cuticle": "male",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "pin": true,
+      "steps": 2000,
+      "p1_mean": -0.949,
+      "orient_frac": 0.0,
+      "song_frac": 0.0,
+      "song_bouts": 0,
+      "song_onset_step": null,
+      "copulation_attempts": 0,
+      "p1_terms": {
+        "ORN_HD": 0.0,
+        "DA1": -1.5087,
+        "ppk23_f": 0.0,
+        "ppk23_m": -0.6343,
+        "LC10a": 0.6451,
+        "P1": -0.3321,
+        "sum": -1.83
+      }
+    },
+    {
+      "condition": "3d",
+      "name": "icarus_pin_female_cuticle",
+      "role": "forced contact, Icarus body, male odor, female cuticle",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "male",
+        "cuticle": "female",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "pin": true,
+      "steps": 2000,
+      "p1_mean": -0.3324,
+      "orient_frac": 0.0005,
+      "song_frac": 0.001,
+      "song_bouts": 1,
+      "song_onset_step": 3,
+      "copulation_attempts": 1,
+      "p1_terms": {
+        "ORN_HD": 0.0,
+        "DA1": -1.5087,
+        "ppk23_f": 0.6343,
+        "ppk23_m": 0.0,
+        "LC10a": 0.6451,
+        "P1": -0.1164,
+        "sum": -0.3457
+      }
+    },
+    {
+      "condition": "copresent",
+      "name": "icarus_hd_and_cva",
+      "role": "Icarus body, HD and cVA both on, free approach",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "both",
+        "cuticle": "male",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "pin": false,
+      "steps": 2000,
+      "p1_mean": -0.0315,
+      "orient_frac": 0.0,
+      "song_frac": 0.0,
+      "song_bouts": 0,
+      "song_onset_step": null,
+      "copulation_attempts": 0,
+      "p1_terms": {
+        "ORN_HD": 0.3068,
+        "DA1": -0.7193,
+        "ppk23_f": 0.0,
+        "ppk23_m": 0.0,
+        "LC10a": 0.3921,
+        "P1": -0.011,
+        "sum": -0.0314
+      }
+    }
+  ],
+  "gate": {
+    "passed": true,
+    "d31": 0.0,
+    "d32": 1.976,
+    "p1_d31": 0.0,
+    "p1_d32": 1.6311,
+    "rule": "condition 3 closer to 1 than to 2 on song, orient, and P1; schema-gate only, same signed channels into a saturating unit"
+  },
+  "control_3b": {
+    "present": true,
+    "p1_mean": -0.4496,
+    "d_3b_2": 0.1991,
+    "d_3b_3": 1.432,
+    "driver": "odor_rewrite"
+  },
+  "tag_leak": {
+    "present": true,
+    "p1_d36": 0.0,
+    "matched": true
+  },
+  "control_3c": {
+    "present": true,
+    "p1_mean": -0.949,
+    "ppk23_m": -0.6343,
+    "ppk23_f": 0.0,
+    "more_negative_than_3b": true,
+    "male_taste_on": true
+  },
+  "control_3d": {
+    "present": true,
+    "p1_mean": -0.3324,
+    "ppk23_f": 0.6343,
+    "ppk23_m": 0.0,
+    "DA1": -1.5087,
+    "LC10a": 0.6451,
+    "driver": "da1_wins_full_excitatory_bundle"
+  },
+  "copresent": {
+    "present": true,
+    "p1_mean": -0.0315,
+    "ORN_HD": 0.3068,
+    "DA1": -0.7193,
+    "song_frac": 0.0,
+    "both_ligands": true
+  }
+}

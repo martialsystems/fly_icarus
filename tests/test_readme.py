@@ -34,10 +34,12 @@ def test_readme_question_first() -> None:
     assert "@1244f09" in text
     assert "odor_rewrite" in text
     assert "p1_terms_s1.json" in text
+    assert "p1_contact_s1.json" in text
     assert "saturating" in text.lower()
+    assert "necessary and sufficient" in text
     desc = (REPO / "description.txt").read_text(encoding="utf-8")
-    assert "Icarus-from-male" in desc
-    assert "odor_rewrite" in desc
+    assert "3≈1" in desc or "3≈1" in text
+    assert "Unfreeze stubbed" in desc or "stay stubbed" in text
     assert "—" not in desc
     assert scan_text(desc) == []
 
@@ -69,3 +71,14 @@ def test_lock_numbers_in_readme() -> None:
     for name in ("ORN_HD", "DA1", "ppk23_f", "ppk23_m", "LC10a"):
         assert str(trows["3"]["p1_terms"][name]) in text
     assert "Do not overwrite" in text
+    contact = REPO / "logs" / "p1_contact_s1.json"
+    assert contact.is_file(), "run p1_contact_s1 lock"
+    cdata = json.loads(contact.read_text(encoding="utf-8"))
+    assert cdata["schema"] == "fly_icarus.p1_frozen.v3"
+    assert cdata["control_3c"]["more_negative_than_3b"] is True
+    assert cdata["control_3d"]["driver"] == "da1_wins_full_excitatory_bundle"
+    assert cdata["copresent"]["both_ligands"] is True
+    crows = {str(r["condition"]): r for r in cdata["conditions"]}
+    assert str(crows["3c"]["p1_mean"]) in text
+    assert str(crows["3d"]["p1_mean"]) in text
+    assert str(crows["copresent"]["p1_mean"]) in text

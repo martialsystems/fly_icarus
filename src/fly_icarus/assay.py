@@ -4,11 +4,15 @@
 from __future__ import annotations
 
 import json
+import math
 from dataclasses import dataclass
 
 import numpy as np
 
 from fly_icarus.icarus import (
+    CUTICLE_FEMALE,
+    CUTICLE_MALE,
+    ODOR_BOTH,
     ODOR_HD,
     ODOR_MALE,
     ODOR_NONE,
@@ -18,8 +22,16 @@ from fly_icarus.icarus import (
     intact_female,
     intact_male,
 )
-from fly_icarus.metrics import Acc, classify_3b, classify_tag_leak, gate_looks_like_female
-from fly_icarus.odor import contact_chc, dist, plume, visual_token
+from fly_icarus.metrics import (
+    Acc,
+    classify_3b,
+    classify_3c,
+    classify_3d,
+    classify_copresent,
+    classify_tag_leak,
+    gate_looks_like_female,
+)
+from fly_icarus.odor import PIN_DISTANCE, contact_chc, dist, plume, visual_token
 from fly_icarus.physics import DT, step_bodies
 from fly_icarus.subject import (
     I_LC10,
@@ -41,20 +53,38 @@ CONDITION_NAMES = {
     "4": "icarus_from_male_body_only",
     "5": "icarus_from_male_odor_only",
     "6": "icarus_from_female",
+    "3c": "icarus_pin_male_cuticle",
+    "3d": "icarus_pin_female_cuticle",
+    "copresent": "icarus_hd_and_cva",
 }
 
 CONDITION_ROLES = {
     "1": "positive control",
     "2": "negative control",
     "3": "the rule: fat wingless, HD on",
-    "3b": "Icarus body, odor still male (cVA on, HD off)",
+    "3b": "Icarus body, odor still male (cVA on, HD off), free approach",
     "4": "morphology without 7,11-HD",
     "5": "7,11-HD without the fat wingless female shape",
     "6": "same body+odor as 3, female wiring tag",
+    "3c": "forced contact, Icarus body, male odor, male cuticle",
+    "3d": "forced contact, Icarus body, male odor, female cuticle",
+    "copresent": "Icarus body, HD and cVA both on, free approach",
 }
 
-DEFAULT_CONDITIONS = ("1", "2", "3", "3b", "4", "5", "6")
-MALE_ICARUS = {"3", "3b", "4", "5"}
+DEFAULT_CONDITIONS = (
+    "1",
+    "2",
+    "3",
+    "3b",
+    "4",
+    "5",
+    "6",
+    "3c",
+    "3d",
+    "copresent",
+)
+MALE_ICARUS = {"3", "3b", "4", "5", "3c", "3d", "copresent"}
+PINNED = {"3c", "3d"}
 
 
 @dataclass
@@ -87,6 +117,12 @@ def make_object(condition: str | int) -> Body:
         return icarus_from_male(odor=ODOR_HD, female_body=False)
     if c == "6":
         return icarus_from_female(odor=ODOR_HD, female_body=True)
+    if c == "3c":
+        return icarus_from_male(odor=ODOR_MALE, female_body=True, cuticle=CUTICLE_MALE)
+    if c == "3d":
+        return icarus_from_male(odor=ODOR_MALE, female_body=True, cuticle=CUTICLE_FEMALE)
+    if c == "copresent":
+        return icarus_from_male(odor=ODOR_BOTH, female_body=True, cuticle=CUTICLE_MALE)
     raise ValueError(f"unknown condition {condition!r}")
 
 
@@ -102,6 +138,7 @@ def make_subject(cfg: AssayConfig, rng: np.random.Generator) -> Body:
         mass=1.0,
         abdomen="male",
         odor="male",
+        cuticle="male",
         frozen=False,
         icarus=False,
     )
@@ -131,13 +168,21 @@ def run_condition(condition: str | int, cfg: AssayConfig, rng: np.random.Generat
     if c == "6" and obj.wiring_sex != 0:
         raise RuntimeError("Icarus-from-female lost female wiring tag")
     subject = make_subject(cfg, rng)
+    pin = c in PINNED
+    if pin:
+        subject.x = PIN_DISTANCE
+        subject.y = 0.0
+        subject.heading = math.pi
     net = SubjectNet.fresh()
     acc = Acc()
     frames: list[dict] = []
+    x0, y0 = subject.x, subject.y
     for t in range(cfg.steps):
         d = dist(subject, obj)
         net.step(sensory_current(subject, obj))
-        st = step_bodies(subject, obj, net, d)
+        st = step_bodies(subject, obj, net, d, pin=pin)
+        if pin and (subject.x != x0 or subject.y != y0):
+            raise RuntimeError("pinned subject walked")
         terms = net.p1_terms()
         acc.tick(
             p1=float(st["p1"]),
@@ -166,10 +211,12 @@ def run_condition(condition: str | int, cfg: AssayConfig, rng: np.random.Generat
             "wings": bool(obj.wings),
             "abdomen": obj.abdomen,
             "odor": obj.odor,
+            "cuticle": obj.cuticle,
             "icarus": bool(obj.icarus),
             "frozen": bool(obj.frozen),
             "mass": obj.mass,
         },
+        "pin": pin,
         **acc.summary(),
     }
     if frames:
@@ -197,7 +244,7 @@ def run_assay(cfg: AssayConfig) -> dict:
         else {"passed": False, "rule": "missing 1-3"}
     )
     return {
-        "schema": "fly_icarus.p1_frozen.v2",
+        "schema": "fly_icarus.p1_frozen.v3",
         "question": (
             "Does a live male P1 network (DA1 / ppk23 / motion still feeding it) "
             "treat a frozen grounded Icarus-from-male as a female?"
@@ -221,6 +268,9 @@ def run_assay(cfg: AssayConfig) -> dict:
         "gate": gate,
         "control_3b": classify_3b(rows),
         "tag_leak": classify_tag_leak(rows),
+        "control_3c": classify_3c(rows),
+        "control_3d": classify_3d(rows),
+        "copresent": classify_copresent(rows),
     }
 
 

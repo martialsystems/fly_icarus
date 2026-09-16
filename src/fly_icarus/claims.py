@@ -33,6 +33,9 @@ BANNED: tuple[tuple[str, re.Pattern[str]], ...] = (
         "schema_as_malecns_court",
         re.compile(r"MaleCNS P1 (would |does )?court|hop-count from the 166", re.I),
     ),
+    ("males_court_fallen", re.compile(r"males court fallen", re.I)),
+    ("shape_overrules_identity", re.compile(r"shape overrules identity", re.I)),
+    ("unfreeze_licensed", re.compile(r"unfreeze is licensed", re.I)),
 )
 
 

@@ -26,7 +26,7 @@ def _parser() -> argparse.ArgumentParser:
     sub = p.add_subparsers(dest="cmd", required=True)
     run = sub.add_parser(
         "assay",
-        help="run frozen-object assay (1, 2, 3, 3b, 4, 5, 6). Unfreeze stays stubbed.",
+        help="run frozen-object assay including 3c/3d/copresent. Unfreeze stays stubbed.",
     )
     run.add_argument("--seed", type=int, default=1)
     run.add_argument("--steps", type=int, default=2000)
@@ -81,11 +81,16 @@ def main(argv: list[str] | None = None) -> int:
     write_run(result, args.out)
     gate = result["gate"]
     c3b = result.get("control_3b") or {}
+    c3c = result.get("control_3c") or {}
+    c3d = result.get("control_3d") or {}
+    cop = result.get("copresent") or {}
     leak = result.get("tag_leak") or {}
     print(
         f"seed={result['seed']} steps={result['steps']} "
         f"gate={gate['passed']} d31={gate.get('d31')} d32={gate.get('d32')} "
-        f"3b={c3b.get('driver')} tag_leak_matched={leak.get('matched')}"
+        f"3b={c3b.get('driver')} 3c_male_taste={c3c.get('male_taste_on')} "
+        f"3d={c3d.get('driver')} copresent_both={cop.get('both_ligands')} "
+        f"tag_leak_matched={leak.get('matched')}"
     )
     for row in result["conditions"]:
         terms = row.get("p1_terms") or {}

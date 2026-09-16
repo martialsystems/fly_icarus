@@ -7,6 +7,9 @@ import math
 
 from fly_icarus.icarus import (
     ABDOMEN_FEMALE,
+    CUTICLE_FEMALE,
+    CUTICLE_MALE,
+    ODOR_BOTH,
     ODOR_HD,
     ODOR_MALE,
     Body,
@@ -17,6 +20,7 @@ VIS_LEN = 8.0
 TAP_RADIUS = 1.2
 COP_RADIUS = 0.85
 SONG_RADIUS = 3.5
+PIN_DISTANCE = 0.55
 
 
 def dist(a: Body, b: Body) -> float:
@@ -46,6 +50,8 @@ def plume(obj: Body, d: float) -> tuple[float, float]:
         return fall, 0.0
     if obj.odor == ODOR_MALE:
         return 0.0, fall
+    if obj.odor == ODOR_BOTH:
+        return fall, fall
     return 0.0, 0.0
 
 
@@ -57,11 +63,11 @@ def visual_token(obj: Body, d: float) -> float:
 
 
 def contact_chc(obj: Body, d: float) -> tuple[float, float]:
-    """ppk23 female-CHC vs male-CHC. HD odor includes the female CHC tag."""
+    """ppk23 female-CHC vs male-CHC. Cuticle is independent of the plume."""
     if d > TAP_RADIUS:
         return 0.0, 0.0
-    if obj.odor == ODOR_HD:
+    if obj.cuticle == CUTICLE_FEMALE:
         return 1.0, 0.0
-    if obj.odor == ODOR_MALE:
+    if obj.cuticle == CUTICLE_MALE:
         return 0.0, 1.0
     return 0.0, 0.0

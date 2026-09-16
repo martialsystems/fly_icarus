@@ -5,8 +5,11 @@ from fly_icarus.assay import make_object
 from fly_icarus.icarus import (
     ABDOMEN_FEMALE,
     ABDOMEN_MALE,
+    CUTICLE_FEMALE,
+    CUTICLE_MALE,
     FEMALE,
     MALE,
+    ODOR_BOTH,
     ODOR_HD,
     ODOR_MALE,
     ODOR_NONE,
@@ -49,9 +52,18 @@ def test_body_only_odor_only_and_3b() -> None:
     assert odor.wings is False
     keep_male = apply_icarus(intact_male(), odor=ODOR_MALE, female_body=True)
     assert keep_male.odor == ODOR_MALE
+    assert keep_male.cuticle == CUTICLE_MALE
     assert keep_male.abdomen == ABDOMEN_FEMALE
     assert keep_male.wings is False
     assert keep_male.wiring_sex == MALE
+    fem_chc = apply_icarus(
+        intact_male(), odor=ODOR_MALE, female_body=True, cuticle=CUTICLE_FEMALE
+    )
+    assert fem_chc.odor == ODOR_MALE
+    assert fem_chc.cuticle == CUTICLE_FEMALE
+    both = apply_icarus(intact_male(), odor=ODOR_BOTH, female_body=True)
+    assert both.odor == ODOR_BOTH
+    assert both.cuticle == CUTICLE_MALE
 
 
 def test_require_wiring_blocks_swap() -> None:
@@ -66,10 +78,16 @@ def test_condition_objects() -> None:
     i = make_object("3")
     b = make_object("3b")
     six = make_object("6")
+    c = make_object("3c")
+    d = make_object("3d")
+    cop = make_object("copresent")
     assert f.wiring_sex == FEMALE and f.odor == ODOR_HD and f.wings
     assert m.wiring_sex == MALE and m.odor == ODOR_MALE and m.wings
     assert i.wiring_sex == MALE and i.odor == ODOR_HD and not i.wings
     assert b.wiring_sex == MALE and b.odor == ODOR_MALE and not b.wings
     assert b.abdomen == ABDOMEN_FEMALE and b.icarus
     assert six.wiring_sex == FEMALE and six.odor == ODOR_HD and six.icarus
+    assert c.odor == ODOR_MALE and c.cuticle == CUTICLE_MALE and c.abdomen == ABDOMEN_FEMALE
+    assert d.odor == ODOR_MALE and d.cuticle == CUTICLE_FEMALE and d.abdomen == ABDOMEN_FEMALE
+    assert cop.odor == ODOR_BOTH and cop.cuticle == CUTICLE_MALE
     assert i.frozen and m.frozen and f.frozen and b.frozen and six.frozen

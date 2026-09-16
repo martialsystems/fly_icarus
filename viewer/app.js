@@ -11,11 +11,14 @@
   const LABELS = {
     "1": "1 female",
     "2": "2 male",
-    "3": "3 Icarus HD",
-    "3b": "3b Icarus+cVA",
-    "4": "4 body only",
-    "5": "5 odor only",
-    "6": "6 Icarus female tag",
+    "3": "3 HD",
+    "3b": "3b cVA",
+    "4": "4 body",
+    "5": "5 odor",
+    "6": "6 tag",
+    "3c": "3c pin mCHC",
+    "3d": "3d pin fCHC",
+    copresent: "HD+cVA",
   };
 
   let pack = null;
@@ -82,6 +85,8 @@
       obj.abdomen +
       " odor=" +
       obj.odor +
+      " cuticle=" +
+      obj.cuticle +
       " frozen=" +
       obj.frozen +
       "\nP1 " +

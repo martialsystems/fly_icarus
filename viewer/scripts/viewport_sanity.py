@@ -343,8 +343,8 @@ def main() -> None:
         if str(row.get("after3b")) != "3b":
             print("FAIL: condition 3b did not select at", req, row.get("after3b"))
             failed = True
-        if int(row.get("btnCount") or 0) < 7:
-            print("FAIL: expected 7 condition buttons at", req)
+        if int(row.get("btnCount") or 0) < 10:
+            print("FAIL: expected 10 condition buttons at", req)
             failed = True
         if not row.get("btnsIn"):
             print("FAIL: a condition button is outside the viewport at", req)

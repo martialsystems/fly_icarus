@@ -12,7 +12,7 @@ Do not restamp FlyWire 139,255 or MaleCNS 166,691. Do not copy the fly_vial lock
 
 Pin is `icarusforge/`. Five laws: claim bans, wiring frozen, shared engine, template identity, assay order. Engine checkout `~/graphforge`. No catalog/`surfaces.json` unless the operator asks. Verify-before-done is the finish gate.
 
-Schema-gate museum: `logs/p1_frozen_s1.json` (@1244f09). Never overwrite it. The live lock with 3b, 6, and P1 term columns is `logs/p1_terms_s1.json`. Seeds 2 and 3 write `logs/p1_terms_s2.json` and `logs/p1_terms_s3.json`. Unfreeze stays stubbed. The schema gate is not a MaleCNS courtship result.
+Schema-gate museum: `logs/p1_frozen_s1.json` (@1244f09). 3b museum: `logs/p1_terms_s1.json`. Never overwrite those. Live lock with 3c/3d/copresent: `logs/p1_contact_s1.json`. Unfreeze stays stubbed. Allowed public sentence: in this slice, HD rewrite is necessary and sufficient for the 3≈1 gate; Icarus morphology alone is not.
 
 ## Verify
 
