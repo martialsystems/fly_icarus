@@ -42,6 +42,7 @@ def test_readme_question_first() -> None:
     assert "odor_rewrite" in text
     assert "p1_terms_s1.json" in text
     assert "p1_contact_s1.json" in text
+    assert "NEXT.md" in text
     assert "saturating" in text.lower()
     assert "necessary and sufficient" in text
     desc = (REPO / "description.txt").read_text(encoding="utf-8")

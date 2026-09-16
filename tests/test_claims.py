@@ -20,7 +20,14 @@ def test_banner_is_clean() -> None:
 
 
 def test_public_copy_is_clean() -> None:
-    for name in ("README.md", "AGENTS.md", "description.txt", "THIRD_PARTY.md", "viewer/index.html"):
+    for name in (
+        "README.md",
+        "AGENTS.md",
+        "NEXT.md",
+        "description.txt",
+        "THIRD_PARTY.md",
+        "viewer/index.html",
+    ):
         require_clean((REPO / name).read_text(encoding="utf-8"), source=name)
     buf = io.StringIO()
     with redirect_stdout(buf):
