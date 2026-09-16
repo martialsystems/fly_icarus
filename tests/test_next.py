@@ -8,8 +8,9 @@ from fly_icarus.cli import main
 
 REPO = Path(__file__).resolve().parents[1]
 QUESTION = (
-    "Do MaleCNS-derived signed weights onto P1/pC1 still make HD-on / cVA-off "
-    "necessary and sufficient for the 3≈1 gate?"
+    "Does hop-1 GABA from annotated mAL onto the same 88 cells pull the "
+    "cVA term through W_crit ≈ -1.54, and only then does HD-on / cVA-off "
+    "become necessary and sufficient?"
 )
 CLOSED = (
     "Does a live male P1 network (DA1 / ppk23 / motion still feeding it) "

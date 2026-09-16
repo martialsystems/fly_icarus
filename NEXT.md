@@ -1,7 +1,5 @@
 # Next question
 
-Do MaleCNS-derived signed weights onto P1/pC1 still make HD-on / cVA-off necessary and sufficient for the 3≈1 gate?
+Does hop-1 GABA from annotated mAL onto the same 88 cells pull the cVA term through W_crit ≈ -1.54, and only then does HD-on / cVA-off become necessary and sufficient?
 
-Answered in [fly_p1_sign](https://github.com/martialsystems/fly_p1_sign) `@45aa064`. Hop-1 signed DA1 onto pC1 coexpress is +62 ACh (scaled W=0.1842). LC10a is +606. ppk23 hop-1 is 0. `hd_on_cva_off_ns` is false.
-
-This tree `@2cf5fd6` stays frozen. Do not restamp `p1_contact_s1.json`. `--n 1000`, `--unfreeze`, and `--female-brain-icarus` stay stubbed here.
+Asked in [fly_p1_mal](https://github.com/martialsystems/fly_p1_mal) `@e16856c`. hop-1 sign answered in [fly_p1_sign](https://github.com/martialsystems/fly_p1_sign) `@45aa064`. This tree `@2cf5fd6` stays frozen. Do not restamp `p1_contact_s1.json`. `--n 1000`, `--unfreeze`, and `--female-brain-icarus` stay stubbed here.
