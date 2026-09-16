@@ -37,6 +37,8 @@ I_PIP10 = 8
 I_SONG = 9
 I_COP = 10
 
+P1_TERM_CELLS = ("ORN_HD", "DA1", "ppk23_f", "ppk23_m", "LC10a", "P1")
+
 
 def load_slice() -> dict:
     return json.loads((TEMPLATES / "male_p1.json").read_text(encoding="utf-8"))
@@ -98,3 +100,13 @@ class SubjectNet:
     @property
     def orient(self) -> float:
         return float(0.5 * (self.r[I_P1] + self.r[I_PC1]))
+
+    def p1_term_weights(self) -> dict[str, float]:
+        return {name: float(self.W[I_P1, CELLS.index(name)]) for name in P1_TERM_CELLS}
+
+    def p1_terms(self) -> dict[str, float]:
+        """Weighted contributions to the P1 pre-activation from W[P1, :]."""
+        return {
+            name: float(self.W[I_P1, CELLS.index(name)] * self.r[CELLS.index(name)])
+            for name in P1_TERM_CELLS
+        }

@@ -8,6 +8,7 @@ from fly_icarus.claims import scan_text
 
 REPO = Path(__file__).resolve().parents[1]
 LOCK = REPO / "logs" / "p1_frozen_s1.json"
+TERMS = REPO / "logs" / "p1_terms_s1.json"
 QUESTION = (
     "Does a live male P1 network (DA1 / ppk23 / motion still feeding it) "
     "treat a frozen grounded Icarus-from-male as a female?"
@@ -29,9 +30,14 @@ def test_readme_question_first() -> None:
     assert "AGENTS.md" in text
     assert "https://gist.github.com/martialsystems/12835f747d6360781f3cc7f91f243178" in text
     assert "published-sign" in text.lower() or "published sign" in text.lower()
-    assert "1,000-fly box would be a physics toy" in text or "physics toy" in text
+    assert "schema gate" in text.lower() or "@1244f09" in text
+    assert "@1244f09" in text
+    assert "odor_rewrite" in text
+    assert "p1_terms_s1.json" in text
+    assert "saturating" in text.lower()
     desc = (REPO / "description.txt").read_text(encoding="utf-8")
     assert "Icarus-from-male" in desc
+    assert "odor_rewrite" in desc
     assert "—" not in desc
     assert scan_text(desc) == []
 
@@ -52,3 +58,14 @@ def test_lock_numbers_in_readme() -> None:
     assert "LOCK" not in text
     assert "d31 = 0.0" in text
     assert str(data["gate"]["d32"]) in text
+    assert TERMS.is_file(), "run p1_terms_s1 lock"
+    terms = json.loads(TERMS.read_text(encoding="utf-8"))
+    assert terms["schema"] == "fly_icarus.p1_frozen.v2"
+    assert terms["control_3b"]["driver"] == "odor_rewrite"
+    assert terms["tag_leak"]["matched"] is True
+    trows = {str(r["condition"]): r for r in terms["conditions"]}
+    assert str(trows["3b"]["p1_mean"]) in text
+    assert str(trows["6"]["p1_mean"]) in text
+    for name in ("ORN_HD", "DA1", "ppk23_f", "ppk23_m", "LC10a"):
+        assert str(trows["3"]["p1_terms"][name]) in text
+    assert "Do not overwrite" in text

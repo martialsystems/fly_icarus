@@ -20,7 +20,7 @@ import pytest
 
 def test_icarus_from_male_keeps_wiring() -> None:
     src = intact_male()
-    out = apply_icarus(src, odor=True, female_body=True)
+    out = apply_icarus(src, odor=ODOR_HD, female_body=True)
     assert src.wiring_sex == MALE
     assert out.wiring_sex == MALE
     assert out.wings is False
@@ -33,20 +33,25 @@ def test_icarus_from_male_keeps_wiring() -> None:
 
 def test_icarus_from_female_keeps_wiring() -> None:
     src = intact_female()
-    out = apply_icarus(src, odor=True, female_body=True)
+    out = apply_icarus(src, odor=ODOR_HD, female_body=True)
     assert out.wiring_sex == FEMALE
     assert out.wings is False
     assert out.odor == ODOR_HD
 
 
-def test_body_only_and_odor_only() -> None:
-    body = apply_icarus(intact_male(), odor=False, female_body=True)
+def test_body_only_odor_only_and_3b() -> None:
+    body = apply_icarus(intact_male(), odor=ODOR_NONE, female_body=True)
     assert body.odor == ODOR_NONE
     assert body.abdomen == ABDOMEN_FEMALE
-    odor = apply_icarus(intact_male(), odor=True, female_body=False)
+    odor = apply_icarus(intact_male(), odor=ODOR_HD, female_body=False)
     assert odor.odor == ODOR_HD
     assert odor.abdomen == ABDOMEN_MALE
     assert odor.wings is False
+    keep_male = apply_icarus(intact_male(), odor=ODOR_MALE, female_body=True)
+    assert keep_male.odor == ODOR_MALE
+    assert keep_male.abdomen == ABDOMEN_FEMALE
+    assert keep_male.wings is False
+    assert keep_male.wiring_sex == MALE
 
 
 def test_require_wiring_blocks_swap() -> None:
@@ -56,10 +61,15 @@ def test_require_wiring_blocks_swap() -> None:
 
 
 def test_condition_objects() -> None:
-    f = make_object(1)
-    m = make_object(2)
-    i = make_object(3)
+    f = make_object("1")
+    m = make_object("2")
+    i = make_object("3")
+    b = make_object("3b")
+    six = make_object("6")
     assert f.wiring_sex == FEMALE and f.odor == ODOR_HD and f.wings
     assert m.wiring_sex == MALE and m.odor == ODOR_MALE and m.wings
     assert i.wiring_sex == MALE and i.odor == ODOR_HD and not i.wings
-    assert i.frozen and m.frozen and f.frozen
+    assert b.wiring_sex == MALE and b.odor == ODOR_MALE and not b.wings
+    assert b.abdomen == ABDOMEN_FEMALE and b.icarus
+    assert six.wiring_sex == FEMALE and six.odor == ODOR_HD and six.icarus
+    assert i.frozen and m.frozen and f.frozen and b.frozen and six.frozen

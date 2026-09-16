@@ -1,1 +1,1 @@
-Does a live male P1 network treat a frozen grounded Icarus-from-male as a female? Seed 1: P1 0.9824 matches flying female; flying male -0.6487. Gate passed. Two agents. Wiring stays. Published-sign slice, not a 166,691-cell LIF.
+Does a live male P1 network treat a frozen Icarus-from-male as a female? Schema gate @1244f09: 3 equals 1. Control 3b (Icarus body, male odor) P1 -0.4496, driver odor_rewrite. Not a MaleCNS hop-count. Two agents. Wiring stays.

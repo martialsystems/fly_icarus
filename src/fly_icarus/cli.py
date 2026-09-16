@@ -24,12 +24,14 @@ LOCK_NAME = "p1_frozen_s1.json"
 def _parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="fly-icarus", description=BANNER)
     sub = p.add_subparsers(dest="cmd", required=True)
-    run = sub.add_parser("assay", help="run experiment 1 (frozen object, conditions 1 to 5)")
+    run = sub.add_parser(
+        "assay",
+        help="run frozen-object assay (1, 2, 3, 3b, 4, 5, 6). Unfreeze stays stubbed.",
+    )
     run.add_argument("--seed", type=int, default=1)
     run.add_argument("--steps", type=int, default=2000)
-    run.add_argument("--out", type=Path, default=LOGS / "p1_frozen.json")
+    run.add_argument("--out", type=Path, default=LOGS / "p1_terms.json")
     run.add_argument("--frames", action="store_true")
-    run.add_argument("--include-6", action="store_true", help="optional Icarus-from-female row")
     run.add_argument("--n", type=int, default=2)
     run.add_argument("--unfreeze", action="store_true")
     run.add_argument("--female-brain-icarus", action="store_true")
@@ -70,25 +72,31 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     if args.cmd != "assay":
         return 1
-    cond = (1, 2, 3, 4, 5, 6) if args.include_6 else (1, 2, 3, 4, 5)
     cfg = AssayConfig(
         seed=int(args.seed),
         steps=int(args.steps),
-        conditions=cond,
         record_frames=bool(args.frames),
     )
     result = run_assay(cfg)
     write_run(result, args.out)
     gate = result["gate"]
+    c3b = result.get("control_3b") or {}
+    leak = result.get("tag_leak") or {}
     print(
         f"seed={result['seed']} steps={result['steps']} "
-        f"gate={gate['passed']} d31={gate.get('d31')} d32={gate.get('d32')}"
+        f"gate={gate['passed']} d31={gate.get('d31')} d32={gate.get('d32')} "
+        f"3b={c3b.get('driver')} tag_leak_matched={leak.get('matched')}"
     )
     for row in result["conditions"]:
+        terms = row.get("p1_terms") or {}
         print(
             f"  {row['condition']} {row['name']}: "
             f"P1={row['p1_mean']:.3f} orient={row['orient_frac']:.3f} "
             f"song={row['song_frac']:.3f} bouts={row['song_bouts']} "
-            f"attempts={row['copulation_attempts']}"
+            f"onset={row.get('song_onset_step')} "
+            f"attempts={row['copulation_attempts']} "
+            f"terms HD={terms.get('ORN_HD')} DA1={terms.get('DA1')} "
+            f"ppk_f={terms.get('ppk23_f')} ppk_m={terms.get('ppk23_m')} "
+            f"LC10a={terms.get('LC10a')} latch={terms.get('P1')}"
         )
     return 0 if gate["passed"] else 1

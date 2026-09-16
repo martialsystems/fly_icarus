@@ -1,0 +1,262 @@
+{
+  "schema": "fly_icarus.p1_frozen.v2",
+  "question": "Does a live male P1 network (DA1 / ppk23 / motion still feeding it) treat a frozen grounded Icarus-from-male as a female?",
+  "honesty": "Published-sign schema. Condition 3 equals 1 when both present the same signed channels into a saturating P1 unit. Not a MaleCNS hop-count.",
+  "n_agents": 2,
+  "n_live_w": 1,
+  "seed": 2,
+  "steps": 2000,
+  "dt": 0.05,
+  "engine": "published_sign_schema",
+  "parent_female_n": 139255,
+  "parent_male_n": 166691,
+  "slice_n": 11,
+  "p1_term_cells": [
+    "ORN_HD",
+    "DA1",
+    "ppk23_f",
+    "ppk23_m",
+    "LC10a",
+    "P1"
+  ],
+  "p1_term_weights": {
+    "ORN_HD": 1.2,
+    "DA1": -1.8,
+    "ppk23_f": 0.8,
+    "ppk23_m": -0.8,
+    "LC10a": 0.9,
+    "P1": 0.35
+  },
+  "conditions": [
+    {
+      "condition": "1",
+      "name": "flying_female",
+      "role": "positive control",
+      "object": {
+        "wiring_sex": 0,
+        "wings": true,
+        "abdomen": "female",
+        "odor": "hd",
+        "icarus": false,
+        "frozen": true,
+        "mass": 1.35
+      },
+      "steps": 2000,
+      "p1_mean": 0.9824,
+      "orient_frac": 0.994,
+      "song_frac": 0.982,
+      "song_bouts": 1,
+      "song_onset_step": 36,
+      "copulation_attempts": 1,
+      "p1_terms": {
+        "ORN_HD": 0.9087,
+        "DA1": 0.0,
+        "ppk23_f": 0.614,
+        "ppk23_m": 0.0,
+        "LC10a": 0.6459,
+        "P1": 0.3438,
+        "sum": 2.5124
+      }
+    },
+    {
+      "condition": "2",
+      "name": "flying_male",
+      "role": "negative control",
+      "object": {
+        "wiring_sex": 1,
+        "wings": true,
+        "abdomen": "male",
+        "odor": "male",
+        "icarus": false,
+        "frozen": true,
+        "mass": 1.0
+      },
+      "steps": 2000,
+      "p1_mean": -0.6487,
+      "orient_frac": 0.0,
+      "song_frac": 0.0,
+      "song_bouts": 0,
+      "song_onset_step": null,
+      "copulation_attempts": 0,
+      "p1_terms": {
+        "ORN_HD": 0.0,
+        "DA1": -0.7193,
+        "ppk23_f": 0.0,
+        "ppk23_m": 0.0,
+        "LC10a": 0.1725,
+        "P1": -0.227,
+        "sum": -0.7738
+      }
+    },
+    {
+      "condition": "3",
+      "name": "icarus_from_male",
+      "role": "the rule: fat wingless, HD on",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "hd",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "steps": 2000,
+      "p1_mean": 0.9824,
+      "orient_frac": 0.994,
+      "song_frac": 0.982,
+      "song_bouts": 1,
+      "song_onset_step": 36,
+      "copulation_attempts": 1,
+      "p1_terms": {
+        "ORN_HD": 0.9077,
+        "DA1": 0.0,
+        "ppk23_f": 0.614,
+        "ppk23_m": 0.0,
+        "LC10a": 0.6455,
+        "P1": 0.3438,
+        "sum": 2.511
+      }
+    },
+    {
+      "condition": "3b",
+      "name": "icarus_from_male_male_odor",
+      "role": "Icarus body, odor still male (cVA on, HD off)",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "male",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "steps": 2000,
+      "p1_mean": -0.4496,
+      "orient_frac": 0.0,
+      "song_frac": 0.0,
+      "song_bouts": 0,
+      "song_onset_step": null,
+      "copulation_attempts": 0,
+      "p1_terms": {
+        "ORN_HD": 0.0,
+        "DA1": -0.7193,
+        "ppk23_f": 0.0,
+        "ppk23_m": 0.0,
+        "LC10a": 0.3921,
+        "P1": -0.1574,
+        "sum": -0.4846
+      }
+    },
+    {
+      "condition": "4",
+      "name": "icarus_from_male_body_only",
+      "role": "morphology without 7,11-HD",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "none",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "steps": 2000,
+      "p1_mean": 0.709,
+      "orient_frac": 0.992,
+      "song_frac": 0.975,
+      "song_bouts": 1,
+      "song_onset_step": 50,
+      "copulation_attempts": 1,
+      "p1_terms": {
+        "ORN_HD": 0.0,
+        "DA1": 0.0,
+        "ppk23_f": 0.0,
+        "ppk23_m": 0.0,
+        "LC10a": 0.6396,
+        "P1": 0.2481,
+        "sum": 0.8877
+      }
+    },
+    {
+      "condition": "5",
+      "name": "icarus_from_male_odor_only",
+      "role": "7,11-HD without the fat wingless female shape",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "male",
+        "odor": "hd",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "steps": 2000,
+      "p1_mean": 0.9667,
+      "orient_frac": 0.993,
+      "song_frac": 0.979,
+      "song_bouts": 1,
+      "song_onset_step": 42,
+      "copulation_attempts": 1,
+      "p1_terms": {
+        "ORN_HD": 0.899,
+        "DA1": 0.0,
+        "ppk23_f": 0.6109,
+        "ppk23_m": 0.0,
+        "LC10a": 0.326,
+        "P1": 0.3383,
+        "sum": 2.1742
+      }
+    },
+    {
+      "condition": "6",
+      "name": "icarus_from_female",
+      "role": "same body+odor as 3, female wiring tag",
+      "object": {
+        "wiring_sex": 0,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "hd",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "steps": 2000,
+      "p1_mean": 0.9824,
+      "orient_frac": 0.994,
+      "song_frac": 0.982,
+      "song_bouts": 1,
+      "song_onset_step": 36,
+      "copulation_attempts": 1,
+      "p1_terms": {
+        "ORN_HD": 0.9086,
+        "DA1": 0.0,
+        "ppk23_f": 0.614,
+        "ppk23_m": 0.0,
+        "LC10a": 0.6459,
+        "P1": 0.3438,
+        "sum": 2.5123
+      }
+    }
+  ],
+  "gate": {
+    "passed": true,
+    "d31": 0.0,
+    "d32": 1.976,
+    "p1_d31": 0.0,
+    "p1_d32": 1.6311,
+    "rule": "condition 3 closer to 1 than to 2 on song, orient, and P1; schema-gate only, same signed channels into a saturating unit"
+  },
+  "control_3b": {
+    "present": true,
+    "p1_mean": -0.4496,
+    "d_3b_2": 0.1991,
+    "d_3b_3": 1.432,
+    "driver": "odor_rewrite"
+  },
+  "tag_leak": {
+    "present": true,
+    "p1_d36": 0.0,
+    "matched": true
+  }
+}

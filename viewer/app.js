@@ -9,20 +9,22 @@
   const hud = document.getElementById("hud");
 
   const LABELS = {
-    1: "1 female",
-    2: "2 male",
-    3: "3 Icarus male",
-    4: "4 body only",
-    5: "5 odor only",
+    "1": "1 female",
+    "2": "2 male",
+    "3": "3 Icarus HD",
+    "3b": "3b Icarus+cVA",
+    "4": "4 body only",
+    "5": "5 odor only",
+    "6": "6 Icarus female tag",
   };
 
   let pack = null;
-  let cond = 3;
+  let cond = "3";
   let i = 0;
   let timer = 0;
 
   function current() {
-    return (pack.conditions || []).find((c) => c.condition === cond);
+    return (pack.conditions || []).find((c) => String(c.condition) === String(cond));
   }
 
   function draw(frame, obj) {
@@ -96,10 +98,10 @@
   }
 
   function select(c) {
-    cond = c;
+    cond = String(c);
     i = 0;
     [...condsEl.querySelectorAll("button")].forEach((b) => {
-      b.setAttribute("aria-selected", b.dataset.cond === String(c) ? "true" : "false");
+      b.setAttribute("aria-selected", b.dataset.cond === cond ? "true" : "false");
     });
     tick();
   }
@@ -110,8 +112,8 @@
       const b = document.createElement("button");
       b.type = "button";
       b.dataset.cond = String(row.condition);
-      b.textContent = LABELS[row.condition] || String(row.condition);
-      b.setAttribute("aria-selected", row.condition === cond ? "true" : "false");
+      b.textContent = LABELS[String(row.condition)] || String(row.condition);
+      b.setAttribute("aria-selected", String(row.condition) === String(cond) ? "true" : "false");
       b.addEventListener("click", () => select(row.condition));
       condsEl.appendChild(b);
     });

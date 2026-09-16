@@ -227,12 +227,15 @@ MEASURE_JS = r"""
     r && r.width > 0 && r.height > 0 && r.left >= -8 && r.right <= vw + 8 && r.top < vh && r.bottom > 0;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
-  window.FlyIcarus.select(2);
+  window.FlyIcarus.select("2");
   await new Promise((r) => setTimeout(r, 80));
   const after2 = window.FlyIcarus.currentCondition();
-  window.FlyIcarus.select(3);
+  window.FlyIcarus.select("3");
   await new Promise((r) => setTimeout(r, 80));
   const after3 = window.FlyIcarus.currentCondition();
+  window.FlyIcarus.select("3b");
+  await new Promise((r) => setTimeout(r, 80));
+  const after3b = window.FlyIcarus.currentCondition();
   const arena = document.getElementById("arena").getBoundingClientRect();
   const hud = document.getElementById("hud");
   const p1 = document.getElementById("p1");
@@ -241,7 +244,7 @@ MEASURE_JS = r"""
   const overflow = document.documentElement.scrollWidth > vw + 1;
   return {
     vw, vh,
-    after2, after3,
+    after2, after3, after3b,
     btnCount: btns.length,
     btnsIn,
     arenaVisible: arena.width > 80 && arena.height > 80,
@@ -331,14 +334,17 @@ def main() -> None:
         if int(row.get("vw") or 0) != int(req.get("w") or -1):
             print("FAIL: innerWidth {0} != {1}".format(row.get("vw"), req.get("w")))
             failed = True
-        if int(row.get("after2") or 0) != 2:
+        if str(row.get("after2")) != "2":
             print("FAIL: condition 2 did not select at", req, row.get("after2"))
             failed = True
-        if int(row.get("after3") or 0) != 3:
+        if str(row.get("after3")) != "3":
             print("FAIL: condition 3 did not select at", req, row.get("after3"))
             failed = True
-        if int(row.get("btnCount") or 0) < 5:
-            print("FAIL: expected 5 condition buttons at", req)
+        if str(row.get("after3b")) != "3b":
+            print("FAIL: condition 3b did not select at", req, row.get("after3b"))
+            failed = True
+        if int(row.get("btnCount") or 0) < 7:
+            print("FAIL: expected 7 condition buttons at", req)
             failed = True
         if not row.get("btnsIn"):
             print("FAIL: a condition button is outside the viewport at", req)

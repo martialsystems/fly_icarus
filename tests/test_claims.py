@@ -38,3 +38,5 @@ def test_banned_tokens_fail() -> None:
         require_clean("em dash here — no", source="x")
     with pytest.raises(ClaimBanError):
         require_clean("IBD F = 0.524 vs random", source="x")
+    with pytest.raises(ClaimBanError):
+        require_clean("MaleCNS P1 would court a fallen male", source="x")

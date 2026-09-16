@@ -69,10 +69,16 @@ def intact_male(*, x: float = 0.0, y: float = 0.0, frozen: bool = True) -> Body:
 def apply_icarus(
     body: Body,
     *,
-    odor: bool = True,
+    odor: str = ODOR_HD,
     female_body: bool = True,
 ) -> Body:
-    """House rule. Wiring sex is copied, never rewritten."""
+    """House rule. Wiring sex is copied, never rewritten.
+
+    odor is a source tag: hd, male (cVA / 7-T), or none. The default Icarus
+    rewrite writes HD. Condition 3b keeps male odor on a fat wingless body.
+    """
+    if odor not in (ODOR_HD, ODOR_MALE, ODOR_NONE):
+        raise ValueError(f"unknown odor {odor!r}")
     wiring = int(body.wiring_sex)
     out = replace(
         body,
@@ -80,7 +86,7 @@ def apply_icarus(
         wings=False,
         mass=ICARUS_MASS,
         abdomen=ABDOMEN_FEMALE if female_body else ABDOMEN_MALE,
-        odor=ODOR_HD if odor else ODOR_NONE,
+        odor=odor,
         frozen=True,
         wiring_sex=wiring,
     )
@@ -88,9 +94,9 @@ def apply_icarus(
     return out
 
 
-def icarus_from_male(*, odor: bool = True, female_body: bool = True) -> Body:
+def icarus_from_male(*, odor: str = ODOR_HD, female_body: bool = True) -> Body:
     return apply_icarus(intact_male(), odor=odor, female_body=female_body)
 
 
-def icarus_from_female(*, odor: bool = True, female_body: bool = True) -> Body:
+def icarus_from_female(*, odor: str = ODOR_HD, female_body: bool = True) -> Body:
     return apply_icarus(intact_female(), odor=odor, female_body=female_body)

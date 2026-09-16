@@ -29,6 +29,10 @@ BANNED: tuple[tuple[str, re.Pattern[str]], ...] = (
         re.compile(r"\b(animation|renderer)\b.{0,40}\b(science|result|finding)\b", re.I),
     ),
     ("parent_f_restamp", re.compile(r"F = 0\.524|IBD F = 0\.524", re.I)),
+    (
+        "schema_as_malecns_court",
+        re.compile(r"MaleCNS P1 (would |does )?court|hop-count from the 166", re.I),
+    ),
 )
 
 
