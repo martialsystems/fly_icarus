@@ -13,6 +13,11 @@ QUESTION = (
     "Does a live male P1 network (DA1 / ppk23 / motion still feeding it) "
     "treat a frozen grounded Icarus-from-male as a female?"
 )
+ALLOWED = (
+    "In this 11-cell published-sign slice, rewriting odor to 7,11-HD with cVA off "
+    "is necessary and sufficient for the 3≈1 gate. Icarus morphology, pinned "
+    "contact, and feminized cuticle are not."
+)
 
 
 def test_readme_question_first() -> None:
@@ -20,6 +25,8 @@ def test_readme_question_first() -> None:
     assert text.startswith("# fly_icarus\n")
     body = text.split("\n", 1)[1].lstrip()
     assert body.startswith(QUESTION)
+    rest = body[len(QUESTION) :].lstrip()
+    assert rest.startswith(ALLOWED)
     assert "139,255" in text
     assert "166,691" in text
     assert "What it is not" not in text
@@ -82,3 +89,10 @@ def test_lock_numbers_in_readme() -> None:
     assert str(crows["3c"]["p1_mean"]) in text
     assert str(crows["3d"]["p1_mean"]) in text
     assert str(crows["copresent"]["p1_mean"]) in text
+    dose = REPO / "logs" / "p1_da1_dose_s1.json"
+    assert dose.is_file(), "run p1_da1_dose_s1 lock"
+    ddata = json.loads(dose.read_text(encoding="utf-8"))
+    assert ddata["schema"] == "fly_icarus.p1_da1_dose.v1"
+    assert ddata["critical_weight"]["crossed"] is True
+    assert str(ddata["critical_weight"]["w_p1_da1"]) in text
+    assert str(ddata["p1_at_default"]) in text

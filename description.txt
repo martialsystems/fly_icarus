@@ -1,1 +1,1 @@
-Does a live male P1 network treat a frozen Icarus-from-male as a female? In this 11-cell slice, HD rewrite is necessary and sufficient for 3≈1. 3c P1 -0.949; 3d DA1 still wins (-0.3324); copresent -0.0315. Unfreeze stubbed.
+In this 11-cell published-sign slice, rewriting odor to 7,11-HD with cVA off is necessary and sufficient for the 3≈1 gate. Icarus morphology, pinned contact, and feminized cuticle are not. 3d-pin DA1 W_crit=-1.5262. Frozen. Unfreeze stubbed.

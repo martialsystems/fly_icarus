@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from fly_icarus.assay import AssayConfig, run_assay, write_run
+from fly_icarus.dose import run_da1_dose
 from fly_icarus.claims import require_clean
 from fly_icarus.paths import LOGS, REPO
 from icarusforge.gate import LawBlockedError, require_assay_order, require_readme_clean
@@ -35,6 +36,16 @@ def _parser() -> argparse.ArgumentParser:
     run.add_argument("--n", type=int, default=2)
     run.add_argument("--unfreeze", action="store_true")
     run.add_argument("--female-brain-icarus", action="store_true")
+    dose = sub.add_parser(
+        "da1-dose",
+        help="sweep W[P1,DA1] on the 3d pin until P1 mean crosses zero",
+    )
+    dose.add_argument("--seed", type=int, default=1)
+    dose.add_argument("--steps", type=int, default=2000)
+    dose.add_argument("--out", type=Path, default=LOGS / "p1_da1_dose.json")
+    dose.add_argument("--n", type=int, default=2)
+    dose.add_argument("--unfreeze", action="store_true")
+    dose.add_argument("--female-brain-icarus", action="store_true")
     return p
 
 
@@ -70,6 +81,18 @@ def main(argv: list[str] | None = None) -> int:
     if int(args.n) != 2 or bool(args.unfreeze) or bool(args.female_brain_icarus):
         print("experiment 2/3 is stubbed until the frozen assay is the lock", file=sys.stderr)
         return 2
+    if args.cmd == "da1-dose":
+        cfg = AssayConfig(seed=int(args.seed), steps=int(args.steps))
+        result = run_da1_dose(cfg)
+        write_run(result, args.out)
+        crit = result.get("critical_weight") or {}
+        print(
+            f"seed={result['seed']} steps={result['steps']} "
+            f"default_w={result['default_w_p1_da1']} "
+            f"p1_at_default={result['p1_at_default']} "
+            f"crossed={crit.get('crossed')} w_crit={crit.get('w_p1_da1')}"
+        )
+        return 0 if crit.get("crossed") else 1
     if args.cmd != "assay":
         return 1
     cfg = AssayConfig(

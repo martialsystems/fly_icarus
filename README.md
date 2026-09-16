@@ -2,7 +2,9 @@
 
 Does a live male P1 network (DA1 / ppk23 / motion still feeding it) treat a frozen grounded Icarus-from-male as a female?
 
-The live net is an 11-cell published-sign schema. Condition 3 equals condition 1 because both present the same signed channels to a saturating P1 unit, not because MaleCNS decided that. `@1244f09` (`logs/p1_frozen_s1.json`) is that schema gate. It passed. It is not a connectome courtship result.
+In this 11-cell published-sign slice, rewriting odor to 7,11-HD with cVA off is necessary and sufficient for the 3≈1 gate. Icarus morphology, pinned contact, and feminized cuticle are not.
+
+The live net is an 11-cell published-sign schema. Condition 3 equals condition 1 because both present the same signed channels to a saturating P1 unit, not because MaleCNS decided that. `@1244f09` (`logs/p1_frozen_s1.json`) is that schema gate. It passed. It is not a connectome courtship result. The frozen P1 question is closed for this slice.
 
 P1 pre-activation, weights from `data/templates/male_p1.json`:
 
@@ -10,11 +12,27 @@ P1 pre-activation, weights from `data/templates/male_p1.json`:
 
 Icarus-from-male as encoded turns HD on and cVA/DA1 off. That removes the only strong brake and leaves two excitatory tags plus a 0.35 latch. `d31 = 0.0` is the same feature vector twice. Seeds 2 and 3 matching the sign is a near-deterministic schema, not independent biological replication. LC10a here is a frozen size/shape bit. Song bouts = 1 is a threshold crossing: at dt = 0.05 the latch turns on at step 36 (1.8 s) and stays on. That is not a pulse-song motif.
 
-In this 11-cell published-sign slice, rewriting odor to 7,11-HD is necessary and sufficient for the 3≈1 gate. Icarus morphology alone is not.
+## DA1 dose-response on the 3d pin
 
-## Forced contact and co-presentation (this lock)
+Copied from `logs/p1_da1_dose_s1.json`. Seed 1, 2,000 steps, 3d pin held. Sweep `W[P1, DA1]` from 0.0 to -2.4 in 0.05 steps. Template weight is -1.8.
 
-Copied from `logs/p1_contact_s1.json`. Seed 1, 2,000 steps, dt = 0.05. Subject pinned at 0.55 (inside tap and attempt range) for 3c and 3d so P1 does not decide whether they close. Cuticle is independent of the plume.
+Critical weight: P1 mean crosses zero at `W[P1, DA1] = -1.5262` (bracket -1.5 / -1.55, P1 0.0337 / -0.0307). At the template -1.8, P1 is -0.3324. DA1 wins on 3d because the schema weight is past the crossing, not because 3d was a near-miss. Seeds 2 and 3 give the same -1.5262.
+
+| W[P1, DA1] | P1 mean | DA1 term | song frac |
+|-----------:|--------:|---------:|----------:|
+| 0.0 | 0.9215 | 0.0 | 0.9985 |
+| -1.0 | 0.5635 | -0.8382 | 0.9985 |
+| -1.5 | 0.0337 | -1.2573 | 0.0015 |
+| -1.5262 | 0 | crossing |  |
+| -1.55 | -0.0307 | -1.2992 | 0.0015 |
+| -1.8 | -0.3324 | -1.5087 | 0.001 |
+| -2.4 | -0.76 | -2.0117 | 0.0005 |
+
+`--n 1000`, `--unfreeze`, and `--female-brain-icarus` stay stubbed.
+
+## Forced contact and co-presentation
+
+Copied from `logs/p1_contact_s1.json`. Do not overwrite. Seed 1, 2,000 steps, dt = 0.05. Subject pinned at 0.55 (inside tap and attempt range) for 3c and 3d so P1 does not decide whether they close. Cuticle is independent of the plume.
 
 3c, Icarus body, male odor, male cuticle, pinned: P1 -0.949, more negative than 3b (-0.4496). `ppk23_m` term -0.6343 (weight -0.8 times a saturated rate, not the raw weight). Taste was not rewritten.
 
@@ -89,12 +107,13 @@ copresent. Icarus body, HD and cVA both on, free approach.
 ```
 .venv/bin/python -m pytest
 .venv/bin/python -m fly_icarus assay --seed 1 --steps 2000 --out logs/p1_contact_s1.json
-.venv/bin/python -m fly_icarus assay --seed 2 --steps 2000 --out logs/p1_contact_s2.json
-.venv/bin/python -m fly_icarus assay --seed 3 --steps 2000 --out logs/p1_contact_s3.json
+.venv/bin/python -m fly_icarus da1-dose --seed 1 --steps 2000 --out logs/p1_da1_dose_s1.json
+.venv/bin/python -m fly_icarus da1-dose --seed 2 --steps 2000 --out logs/p1_da1_dose_s2.json
+.venv/bin/python -m fly_icarus da1-dose --seed 3 --steps 2000 --out logs/p1_da1_dose_s3.json
 python3.12 viewer/scripts/viewport_sanity.py
 ```
 
-Do not overwrite `logs/p1_frozen_s1.json` or `logs/p1_terms_s1.json`.
+Do not overwrite `logs/p1_frozen_s1.json`, `logs/p1_terms_s1.json`, or `logs/p1_contact_s1.json`.
 
 ## Files
 
@@ -104,7 +123,8 @@ Do not overwrite `logs/p1_frozen_s1.json` or `logs/p1_terms_s1.json`.
 | `data/templates/male_p1.json` | 11-cell published-sign schema |
 | `logs/p1_frozen_s1.json` | Schema gate museum, @1244f09 |
 | `logs/p1_terms_s1.json` | 3b museum: seven rows, no pin |
-| `logs/p1_contact_s1.json` | Live lock: 3c, 3d, copresent |
+| `logs/p1_contact_s1.json` | Frozen P1 live lock: 3c, 3d, copresent |
+| `logs/p1_da1_dose_s1.json` | 3d-pin DA1 weight sweep, W_crit = -1.5262 |
 | `icarusforge/` | GraphForge pin: five refuse laws |
 | `viewer/` | Two-body condition switcher. Not the finding. |
 | `AGENTS.md` | Project rules and VBD |

@@ -36,6 +36,23 @@
       "paths": ["src/**", "tests/**", "icarusforge/**", "data/**"]
     },
     {
+      "id": "da1-dose-fixture",
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "fly_icarus",
+        "da1-dose",
+        "--seed",
+        "1",
+        "--steps",
+        "200",
+        "--out",
+        "logs/fixture_da1_dose.json"
+      ],
+      "timeout_s": 60,
+      "paths": ["src/**", "tests/test_dose.py", "icarusforge/**"]
+    },
+    {
       "id": "icarusforge-sanity",
       "argv": [".venv/bin/python", "icarusforge/scripts/sanity_icarusforge.py"],
       "timeout_s": 60,

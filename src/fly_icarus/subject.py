@@ -81,6 +81,12 @@ class SubjectNet:
         w = load_W()
         return cls(W=w, r=np.zeros(w.shape[0], dtype=np.float64))
 
+    @classmethod
+    def with_p1_da1_weight(cls, w_p1_da1: float) -> "SubjectNet":
+        w = load_W().copy()
+        w[I_P1, I_DA1] = float(w_p1_da1)
+        return cls(W=w, r=np.zeros(w.shape[0], dtype=np.float64))
+
     def step(self, i_ext: np.ndarray) -> np.ndarray:
         self.r = np.tanh(self.W @ self.r + i_ext)
         return self.r

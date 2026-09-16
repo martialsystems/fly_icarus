@@ -158,7 +158,13 @@ def sensory_current(subject: Body, obj: Body) -> np.ndarray:
     return i
 
 
-def run_condition(condition: str | int, cfg: AssayConfig, rng: np.random.Generator) -> dict:
+def run_condition(
+    condition: str | int,
+    cfg: AssayConfig,
+    rng: np.random.Generator,
+    *,
+    da1_weight: float | None = None,
+) -> dict:
     c = _cid(condition)
     obj = make_object(c)
     if obj.frozen is False:
@@ -173,7 +179,11 @@ def run_condition(condition: str | int, cfg: AssayConfig, rng: np.random.Generat
         subject.x = PIN_DISTANCE
         subject.y = 0.0
         subject.heading = math.pi
-    net = SubjectNet.fresh()
+    net = (
+        SubjectNet.fresh()
+        if da1_weight is None
+        else SubjectNet.with_p1_da1_weight(da1_weight)
+    )
     acc = Acc()
     frames: list[dict] = []
     x0, y0 = subject.x, subject.y
