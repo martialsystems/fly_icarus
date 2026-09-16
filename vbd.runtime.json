@@ -1,0 +1,51 @@
+{
+  "runtime_checks": [
+    {
+      "id": "unit-tests",
+      "argv": [".venv/bin/python", "-m", "pytest", "tests/", "-q"],
+      "timeout_s": 180,
+      "paths": [
+        "src/**",
+        "tests/**",
+        "icarusforge/**",
+        "data/**",
+        "logs/**",
+        "README.md",
+        "AGENTS.md",
+        "description.txt",
+        "pyproject.toml",
+        "vbd.runtime.json",
+        "viewer/**"
+      ]
+    },
+    {
+      "id": "fixture-run",
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "fly_icarus",
+        "assay",
+        "--seed",
+        "1",
+        "--steps",
+        "400",
+        "--out",
+        "logs/fixture.json"
+      ],
+      "timeout_s": 60,
+      "paths": ["src/**", "tests/**", "icarusforge/**", "data/**"]
+    },
+    {
+      "id": "icarusforge-sanity",
+      "argv": [".venv/bin/python", "icarusforge/scripts/sanity_icarusforge.py"],
+      "timeout_s": 60,
+      "paths": ["icarusforge/**", "tests/test_icarusforge_laws.py"]
+    },
+    {
+      "id": "viewport",
+      "argv": ["python3.12", "viewer/scripts/viewport_sanity.py"],
+      "timeout_s": 90,
+      "paths": ["viewer/**"]
+    }
+  ]
+}

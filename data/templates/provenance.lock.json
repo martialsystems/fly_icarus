@@ -1,0 +1,8 @@
+{
+  "kind": "published_sign_schema",
+  "slice": "data/templates/male_p1.json",
+  "parent_male": {"map": "MaleCNS v1", "n": 166691, "citation": "Berg et al., Cell 2026"},
+  "parent_female": {"map": "FlyWire", "n": 139255, "citation": "Dorkenwald et al., Nature 2024"},
+  "extract": false,
+  "note": "Named types only. Not a synapse-count subgraph."
+}

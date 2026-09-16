@@ -1,0 +1,123 @@
+{
+  "schema": "fly_icarus.p1_frozen.v1",
+  "question": "Does a live male P1 network (DA1 / ppk23 / motion still feeding it) treat a frozen grounded Icarus-from-male as a female?",
+  "n_agents": 2,
+  "n_live_w": 1,
+  "seed": 3,
+  "steps": 2000,
+  "dt": 0.05,
+  "engine": "published_sign_schema",
+  "parent_female_n": 139255,
+  "parent_male_n": 166691,
+  "slice_n": 11,
+  "conditions": [
+    {
+      "condition": 1,
+      "name": "flying_female",
+      "role": "positive control",
+      "object": {
+        "wiring_sex": 0,
+        "wings": true,
+        "abdomen": "female",
+        "odor": "hd",
+        "icarus": false,
+        "frozen": true,
+        "mass": 1.35
+      },
+      "steps": 2000,
+      "p1_mean": 0.9824,
+      "orient_frac": 0.994,
+      "song_frac": 0.982,
+      "song_bouts": 1,
+      "copulation_attempts": 1
+    },
+    {
+      "condition": 2,
+      "name": "flying_male",
+      "role": "negative control",
+      "object": {
+        "wiring_sex": 1,
+        "wings": true,
+        "abdomen": "male",
+        "odor": "male",
+        "icarus": false,
+        "frozen": true,
+        "mass": 1.0
+      },
+      "steps": 2000,
+      "p1_mean": -0.6487,
+      "orient_frac": 0.0,
+      "song_frac": 0.0,
+      "song_bouts": 0,
+      "copulation_attempts": 0
+    },
+    {
+      "condition": 3,
+      "name": "icarus_from_male",
+      "role": "the rule",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "hd",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "steps": 2000,
+      "p1_mean": 0.9824,
+      "orient_frac": 0.994,
+      "song_frac": 0.982,
+      "song_bouts": 1,
+      "copulation_attempts": 1
+    },
+    {
+      "condition": 4,
+      "name": "icarus_from_male_body_only",
+      "role": "morphology without 7,11-HD",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "female",
+        "odor": "none",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "steps": 2000,
+      "p1_mean": 0.7107,
+      "orient_frac": 0.992,
+      "song_frac": 0.975,
+      "song_bouts": 1,
+      "copulation_attempts": 1
+    },
+    {
+      "condition": 5,
+      "name": "icarus_from_male_odor_only",
+      "role": "7,11-HD without the fat wingless female shape",
+      "object": {
+        "wiring_sex": 1,
+        "wings": false,
+        "abdomen": "male",
+        "odor": "hd",
+        "icarus": true,
+        "frozen": true,
+        "mass": 1.8
+      },
+      "steps": 2000,
+      "p1_mean": 0.9667,
+      "orient_frac": 0.993,
+      "song_frac": 0.979,
+      "song_bouts": 1,
+      "copulation_attempts": 1
+    }
+  ],
+  "gate": {
+    "passed": true,
+    "d31": 0.0,
+    "d32": 1.976,
+    "p1_d31": 0.0,
+    "p1_d32": 1.6311,
+    "rule": "condition 3 closer to 1 than to 2 on song, orient, and P1; 1 and 3 above 2 on song and P1"
+  }
+}

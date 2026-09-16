@@ -1,0 +1,11 @@
+{
+  "engine": "graphforge",
+  "github": "martialsystems/graphforge",
+  "track": "main",
+  "remote": "origin",
+  "min_version": "0.6.0",
+  "policy": "report_only",
+  "local_candidates": ["~/graphforge"],
+  "require_product_laws": true,
+  "note": "fly_icarus: two-agent P1 assay first; templates not unique brains; Icarus does not swap wiring; n>2 refused until exp1 gate. VBD is the finish gate."
+}

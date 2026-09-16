@@ -1,0 +1,1 @@
+Does a live male P1 network treat a frozen grounded Icarus-from-male as a female? Seed 1: P1 0.9824 matches flying female; flying male -0.6487. Gate passed. Two agents. Wiring stays. Published-sign slice, not a 166,691-cell LIF.
