@@ -7,7 +7,10 @@ from fly_icarus.claims import scan_text
 from fly_icarus.cli import main
 
 REPO = Path(__file__).resolve().parents[1]
-QUESTION = "Does cVA actually drive the mAL cells that account for the -8810?"
+QUESTION = (
+    "Does cVA (DA1 or LH intermediates) synapse onto the mAL IDs "
+    "that make the -8810?"
+)
 CLOSED = (
     "Does a live male P1 network (DA1 / ppk23 / motion still feeding it) "
     "treat a frozen grounded Icarus-from-male as a female?"
@@ -20,7 +23,8 @@ def test_next_lock_file() -> None:
     assert text.startswith("# Next sentence\n")
     body = text.split("\n", 1)[1].lstrip()
     assert body.startswith(QUESTION)
-    assert "One drive check" in text
+    assert "only that count" in text
+    assert "No Icarus rows until then" in text
     assert "Do not reopen `logs/p1_contact_s1.json`" in text
     assert "Unfreeze stays a later question" in text
     assert "2cf5fd6" in text
