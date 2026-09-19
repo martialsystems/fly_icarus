@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+title: fly_icarus
+message: If you use this locked split, cite the science-lock commit.
+type: software
+authors:
+  - name: Martial Systems LLC
+license: MIT
+repository-code: https://github.com/martialsystems/fly_icarus
+url: https://gist.github.com/martialsystems/12835f747d6360781f3cc7f91f243178
+abstract: >
+  On an 11-cell published-sign slice, HD-on / cVA-off is necessary and
+  sufficient for condition 3 matching condition 1. Weights are assumed
+  published signs, not MaleCNS hop counts.
+version: "0.1.0"
+date-released: "2026-09-19"

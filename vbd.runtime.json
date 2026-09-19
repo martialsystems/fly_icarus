@@ -15,6 +15,11 @@
         "NEXT.md",
         "NEXT_SENTENCE.md",
         "description.txt",
+        "METHODS.yaml",
+        "CITATION.cff",
+        "REPRODUCE.md",
+        "scripts/**",
+        "requirements.lock.txt",
         "pyproject.toml",
         "vbd.runtime.json",
         "viewer/**"
@@ -59,6 +64,12 @@
       "argv": [".venv/bin/python", "icarusforge/scripts/sanity_icarusforge.py"],
       "timeout_s": 60,
       "paths": ["icarusforge/**", "tests/test_icarusforge_laws.py"]
+    },
+    {
+      "id": "lock-hashes",
+      "argv": [".venv/bin/python", "scripts/reproduce_lock.py"],
+      "timeout_s": 30,
+      "paths": ["logs/**", "scripts/reproduce_lock.py", "REPRODUCE.md"]
     },
     {
       "id": "viewport",

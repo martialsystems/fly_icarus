@@ -27,6 +27,9 @@ def test_public_copy_is_clean() -> None:
         "NEXT_SENTENCE.md",
         "description.txt",
         "THIRD_PARTY.md",
+        "METHODS.yaml",
+        "CITATION.cff",
+        "REPRODUCE.md",
         "viewer/index.html",
     ):
         require_clean((REPO / name).read_text(encoding="utf-8"), source=name)

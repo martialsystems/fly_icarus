@@ -1,0 +1,18 @@
+question: Does a live male P1 network (DA1 / ppk23 / motion still feeding it) treat a frozen grounded Icarus-from-male as a female?
+falsifier: condition 3 not matching condition 1 when HD-on / cVA-off, on this 11-cell published-sign slice
+object: constrained toy dynamics
+status: Frozen slice
+system: 11 named cells; 2 agents; 2000 steps; dt=0.05; seed 1 lock plus seeds 2 and 3
+data_version: published-sign schema on MaleCNS / FlyWire type names; not a hop-count extract; MaleCNS lock 166691; FlyWire lock 139255
+neuron_table: named types only (data/templates/male_p1.json)
+dynamics: saturating rate units r = tanh(W @ r + i_ext); dt=0.05; not LIF
+rng: numpy seed on the assay; schema is near-deterministic
+n_seeds: 3
+n_meaning: seeds 2 and 3 match the sign because the schema is near-deterministic
+locked_metric: logs/p1_contact_s1.json 3d P1=-0.3324; logs/p1_da1_dose_s1.json W_crit=-1.5262
+pre_specified: false
+science_lock: 2cf5fd6
+parent_sha: ""
+reduction: 11-cell published-sign slice; LC10a is a frozen size/shape bit; song and copulation are saturating readouts on this W
+weight_source: assumed published signs, not MaleCNS hop counts
+kind: published_sign_schema

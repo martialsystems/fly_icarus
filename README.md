@@ -102,6 +102,35 @@ Same subject every row. Object frozen.
 3d. Forced contact, Icarus body, male odor, female cuticle.
 copresent. Icarus body, HD and cVA both on, free approach.
 
+## Methods card
+
+Copied from `METHODS.yaml`. Object of study: constrained toy dynamics on an 11-cell published-sign slice. Cells are type names, not MaleCNS body IDs. Dynamics are saturating tanh units, not LIF.
+
+| Field | Value |
+|-------|-------|
+| Falsifier | condition 3 not matching condition 1 when HD-on / cVA-off, on this slice |
+| Status | Frozen slice |
+| System | 11 named cells; 2,000 steps; dt = 0.05 |
+| Weight source | assumed published signs (`kind: published_sign_schema`) |
+| Neuron table | named types only |
+| RNG | `numpy.random.default_rng(seed)` |
+| n / seeds | 3 (near-deterministic) |
+| Locked metric | `logs/p1_da1_dose_s1.json` W_crit = -1.5262 |
+| Pre-specified | false (question locked after the split) |
+| Science lock | `2cf5fd6` |
+| Reduction | saturating P1 unit on these W; LC10a is a size/shape bit |
+
+## Prior constraints
+
+| Edge / cell | Source |
+|-------------|--------|
+| `W[P1, ORN_HD] = 1.2` | assumed published sign |
+| `W[P1, DA1] = -1.8` | assumed published sign; template is reject-side of W_crit = -1.5262 |
+| `W[P1, ppk23_f] = 0.8`, `W[P1, ppk23_m] = -0.8` | assumed published sign |
+| `W[P1, LC10a] = 0.9` | assumed published sign; frozen size/shape proxy |
+| Type names P1, DA1, LC10a, ppk23 | names shared with Berg et al. 2026 and pC1 papers; not body IDs |
+| Hop-1 MaleCNS counts | not this tree; see `fly_p1_sign` |
+
 ## How to run
 
 ```
@@ -111,6 +140,7 @@ copresent. Icarus body, HD and cVA both on, free approach.
 .venv/bin/python -m fly_icarus da1-dose --seed 2 --steps 2000 --out logs/p1_da1_dose_s2.json
 .venv/bin/python -m fly_icarus da1-dose --seed 3 --steps 2000 --out logs/p1_da1_dose_s3.json
 python3.12 viewer/scripts/viewport_sanity.py
+.venv/bin/python scripts/reproduce_lock.py
 ```
 
 Do not overwrite `logs/p1_frozen_s1.json`, `logs/p1_terms_s1.json`, or `logs/p1_contact_s1.json`.
@@ -126,6 +156,11 @@ Do not overwrite `logs/p1_frozen_s1.json`, `logs/p1_terms_s1.json`, or `logs/p1_
 | `logs/p1_contact_s1.json` | Frozen P1 live lock: 3c, 3d, copresent |
 | `logs/p1_da1_dose_s1.json` | 3d-pin DA1 weight sweep, W_crit = -1.5262 |
 | `icarusforge/` | GraphForge pin: five refuse laws |
+| `METHODS.yaml` | Methods card |
+| `CITATION.cff` | Citation file; DOI empty until a deposit exists |
+| `REPRODUCE.md` | Independent replica: hashes, pin, commands |
+| `scripts/reproduce_lock.py` | Hash-check locked logs; `--rerun` writes temp |
+| `requirements.lock.txt` | numpy 2.5.3, pytest 9.1.1 |
 | `viewer/` | Two-body condition switcher |
 | `AGENTS.md` | Project rules and VBD |
 | `NEXT.md` | Pointer. Do not restamp `@2cf5fd6`. |
